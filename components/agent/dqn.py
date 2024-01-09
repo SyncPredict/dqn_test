@@ -58,11 +58,11 @@ class DQNAgent:
         return action, hidden_state
 
     def store_transition(self, state, action, next_state, reward, done):
-        if state is not None:
-            state = torch.tensor(state, dtype=torch.float32).to(device)
-        if next_state is not None:
-            next_state = torch.tensor(next_state, dtype=torch.float32).to(device)
+        if state is None or next_state is None:
+            return
 
+        state = torch.tensor(state, dtype=torch.float32).to(device)
+        next_state = torch.tensor(next_state, dtype=torch.float32).to(device)
         action = torch.tensor([action], dtype=torch.int64).to(device)
         reward = torch.tensor([reward], dtype=torch.float32).to(device)
 
