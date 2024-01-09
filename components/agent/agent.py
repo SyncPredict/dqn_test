@@ -41,7 +41,8 @@ class Agent:
                 plot_results(batch_result, f'plots/episode_{episode}')
             episodes_stats.append(batch_result)
             wandb.log({'Episode score': score})
-            self.save_model(f'model_episode_{episode}.pth')
+            if episode % 100 == 0:
+                self.save_model(f'model_episode_{episode}.pth')
 
             if training and episode % self.batch_size == 0:
                 self.agent.optimize(self.batch_size)
